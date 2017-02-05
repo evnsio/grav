@@ -2,12 +2,10 @@ version: '2'
 services:
   grav:
     image: evns/grav
-    build: ./
     ports:
       - "80:80"
+      - "443:443"
     environment:
-      - TERM=xterm
-      - DOMAIN=localhost
       - ADMIN_USER=admin
       - ADMIN_PASSWORD=Pa55word
       - ADMIN_EMAIL=admin@example.com
@@ -15,4 +13,6 @@ services:
       - ADMIN_FULLNAME=Admin
       - ADMIN_TITLE=SiteAdmin
     volumes:
-      - /var/www/grav-admin
+      - userdata:/var/www/grav-admin/user
+volumes:
+  userdata:

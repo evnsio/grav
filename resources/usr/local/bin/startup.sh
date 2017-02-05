@@ -2,7 +2,7 @@
 
 set -e
 
-# cd to grav home
+# Go to grav home
 GRAV_HOME=/var/www/grav-admin
 echo "[ INFO ] Grav home set to" $GRAV_HOME
 cd $GRAV_HOME
