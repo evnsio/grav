@@ -18,7 +18,7 @@ RUN wget https://github.com/getgrav/grav/releases/download/$GRAV_VERSION/grav-ad
     cd grav-admin && \
     bin/gpm install -f -y admin
 
-# Configure grav
+# Configure nginx with grav
 WORKDIR grav-admin
 RUN cd webserver-configs && \
     sed -i 's/root \/home\/USER\/www\/html/root \/var\/www\/grav-admin/g' nginx.conf && \
