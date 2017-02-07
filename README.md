@@ -18,19 +18,63 @@ This will run grav, and prompt for admin user setup on startup.  Grav will be av
 
 ### Docker-Compose
 
-To simplify further, the container can be started using the supplied [docker-compose.yml](https://github.com/evnsio/grav/blob/master/docker-compose.yml), and running: 
+To simplify further, the site can be started using the following docker compose: 
+
+```
+version: '2'
+services:
+  site:
+    image: evns/grav
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - ADMIN_USER=admin
+      - ADMIN_PASSWORD=Pa55word
+      - ADMIN_EMAIL=admin@example.com
+      - ADMIN_PERMISSIONS=b
+      - ADMIN_FULLNAME=Admin
+      - ADMIN_TITLE=SiteAdmin
+    volumes:
+      - backup:/var/www/grav-admin/
+volumes:
+  backup:
+    external: false
+```
+
+and running:
 
 ```
 docker-compose up -d
 ```
 
-This will open port 80 for web access, configure the admin user, and create a volume named volume called `userdata` with the grav user data mounted into it. 
+This will open port 80 for web access, configure the admin user, and create a volume named volume called `backup` with the grav user data mounted into it. 
 All user specific data will mounted on the host in this volume.
 
 ## Backing up
 
-To keep your site backed up, simply ensure the `userdata` volume is backed up.
+To create a backup, run the standard grav backup script in the container:
+
+```
+docker exec <container-name> /var/www/grav-admin/bin/grav backup
+```
+
+This wil create a new archive in the backup volume.  
+Simply copy this somewhere to ensure you have the full site backed up.  
+
+For example, to synchronise the contents of the volume to s3:
+  
+```
+docker run --volumes-from=<container-name> --rm pmcjury/aws-cli s3 sync /var/www/grav-admin/backup/ s3://<bucket-name>
+```
 
 ## Restoring/migrating
 
-To restore your site, copy the contents of your backup (or your`/user/` folder) to the `userdata` volume.  
+To restore your site, copy the contents of your backup to the backup volume on the host.
+
+The location of the volume on the host can be found with:
+
+```
+docker volume inspect <volume-name>
+```

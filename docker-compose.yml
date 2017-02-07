@@ -1,7 +1,8 @@
 version: '2'
 services:
-  grav:
+  site:
     image: evns/grav
+    restart: always
     ports:
       - "80:80"
       - "443:443"
@@ -13,6 +14,7 @@ services:
       - ADMIN_FULLNAME=Admin
       - ADMIN_TITLE=SiteAdmin
     volumes:
-      - userdata:/var/www/grav-admin/user
+      - backup:/var/www/grav-admin/
 volumes:
-  userdata:
+  backup:
+    external: false
