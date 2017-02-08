@@ -7,7 +7,7 @@ GRAV_HOME=/var/www/grav-admin
 echo "[ INFO ] Grav home set to" $GRAV_HOME
 cd $GRAV_HOME
 
-if [ -e ~/grav-configured ]; then
+if [ -e /var/www/grav-admin/grav-configured ]; then
 	echo "[ INFO ] Grav already configured"
 else
 
@@ -37,7 +37,7 @@ else
     fi
 
     # Touch file to indicate we're configured for future startups
-    touch ~/grav-configured
+    touch /var/www/grav-admin/grav-configured
 fi
 
 # Run nginx as foreground process
