@@ -31,6 +31,7 @@ else
                                      --title=${ADMIN_TITLE-"SiteAdministrator"}
 
             chown www-data:www-data $GRAV_HOME/user/accounts/$ADMIN_USER.yaml
+            bin/grav clear-cache
         fi
     fi
 
