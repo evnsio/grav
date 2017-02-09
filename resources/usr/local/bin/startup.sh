@@ -29,6 +29,8 @@ else
                                      --email=${ADMIN_EMAIL-"admin@domain.com"} \
                                      --fullname=${ADMIN_FULLNAME-"Administrator"} \
                                      --title=${ADMIN_TITLE-"SiteAdministrator"}
+
+            chown www-data:www-data $GRAV_HOME/user/accounts/$ADMIN_USER.yaml
         fi
     fi
 
