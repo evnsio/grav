@@ -7,9 +7,6 @@ export GRAV_HOME=/var/www/grav-admin
 echo "[ INFO ] Grav home set to" $GRAV_HOME
 cd $GRAV_HOME
 
-# Set the correct permissions
-echo "[ INFO ] Setting folder permissions on grav home"
-chown -R www-data:www-data $GRAV_HOME
 
 if [ -e $GRAV_HOME/grav-configured ]; then
 	echo "[ INFO ] Grav already configured"
@@ -23,15 +20,12 @@ else
         else
             echo "[ INFO ] Setting up Grav admin user"
 
-            bin/plugin login newuser --user=${ADMIN_USER} \
-                                     --password=${ADMIN_PASSWORD-"Pa55word"} \
-                                     --permissions=${ADMIN_PERMISSIONS-"b"} \
-                                     --email=${ADMIN_EMAIL-"admin@domain.com"} \
-                                     --fullname=${ADMIN_FULLNAME-"Administrator"} \
-                                     --title=${ADMIN_TITLE-"SiteAdministrator"}
-
-            chown www-data:www-data $GRAV_HOME/user/accounts/$ADMIN_USER.yaml
-            bin/grav clear-cache
+            sudo -u www-data bin/plugin login newuser --user=${ADMIN_USER} \
+                                                      --password=${ADMIN_PASSWORD-"Pa55word"} \
+                                                      --permissions=${ADMIN_PERMISSIONS-"b"} \
+                                                      --email=${ADMIN_EMAIL-"admin@domain.com"} \
+                                                      --fullname=${ADMIN_FULLNAME-"Administrator"} \
+                                                      --title=${ADMIN_TITLE-"SiteAdministrator"}
         fi
     fi
 
