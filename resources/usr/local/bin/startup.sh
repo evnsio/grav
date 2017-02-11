@@ -30,7 +30,7 @@ else
     fi
 
     # Set the domain name in the nginx config
-    if [ -z $DOMAIN ]; then
+    if [ -z ${DOMAIN} ]; then
         echo "[ INFO ] No Domain supplied. Defaulting to localhost"
     else
         echo "[ INFO ] Setting server_name to " ${DOMAIN}
