@@ -1,6 +1,6 @@
-# evns/grav
+This is a simple Docker image running Grav CMS with the admin plugin under Nginx.
 
-This is a simple Docker image running Grav CMS with the admin panel under Nginx.
+The container can also optionally generate trusted certs for your domain, using Let's Encrypt.  See [this post](https://evns.io/blog/automatic-ssl-setup-with-grav) for details.
 
 For more info on Grav, visit the [Grav Website](https://getgrav.org/).
 
@@ -20,7 +20,7 @@ This will run grav, and prompt for admin user setup on startup.  Grav will be av
 
 To simplify further, the site can be started using the following docker compose: 
 
-```
+```YAML
 version: '2'
 services:
   site:
@@ -36,6 +36,8 @@ services:
       - ADMIN_PERMISSIONS=b
       - ADMIN_FULLNAME=Admin
       - ADMIN_TITLE=SiteAdmin
+      - DOMAIN=example.com    # set to your root/apex domain
+      - GENERATE_CERTS=true   # set to true to automatically setup trusted ssl with let's encrypt
     volumes:
       - backup:/var/www/grav-admin/
 volumes:
@@ -49,18 +51,23 @@ and running:
 docker-compose up -d
 ```
 
-This will open port 80 for web access, configure the admin user, and create a volume named volume called `backup` with the grav user data mounted into it. 
-All user specific data will mounted on the host in this volume.
+This will do the following:
+* Open ports 80 and 443 for http(s) access
+* Configure the admin user
+* Create a volume named `backup` with the grav user data mounted into it
+* Generate trusted certificates for 'example.com' using Let's Encrypt
+* Configure Nginx with SSL
+
 
 ## Backing up
 
-To create a backup, run the standard grav backup script in the container:
+To create a backup, run the grav backup script in the container:
 
 ```
 docker exec <container-name> /var/www/grav-admin/bin/grav backup
 ```
 
-This wil create a new archive in the backup volume.  
+This wil create a new archive in `/var/www/grav-admin/backup` which is also located on the host volume.  
 Simply copy this somewhere to ensure you have the full site backed up.  
 
 For example, to synchronise the contents of the volume to s3:
@@ -71,7 +78,7 @@ docker run --volumes-from=<container-name> --rm pmcjury/aws-cli s3 sync /var/www
 
 ## Restoring/migrating
 
-To restore your site, copy the contents of your backup to the backup volume on the host.
+To restore your site, copy the contents of your backup archive to the backup volume on the host.
 
 The location of the volume on the host can be found with:
 

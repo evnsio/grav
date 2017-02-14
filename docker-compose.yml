@@ -13,6 +13,8 @@ services:
       - ADMIN_PERMISSIONS=b
       - ADMIN_FULLNAME=Admin
       - ADMIN_TITLE=SiteAdmin
+      - DOMAIN=example.com    # set to your root/apex domain
+      - GENERATE_CERTS=false  # set to true to automatically setup trusted ssl with let's encrypt
     volumes:
       - backup:/var/www/grav-admin/
 volumes:

@@ -4,7 +4,6 @@ set -e
 
 function configure_admin() {
     export GRAV_HOME=/var/www/grav-admin
-    cd $GRAV_HOME
 
     # Setup admin user (if supplied)
     if [ -z $ADMIN_USER ]; then
@@ -14,6 +13,7 @@ function configure_admin() {
             echo "[ INFO ] Grav admin user already exists"
         else
             echo "[ INFO ] Setting up Grav admin user"
+            cd $GRAV_HOME
 
             sudo -u www-data bin/plugin login newuser \
                  --user=${ADMIN_USER} \
