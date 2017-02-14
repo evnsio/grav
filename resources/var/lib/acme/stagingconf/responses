@@ -1,0 +1,7 @@
+"acme-enter-email": "hostmaster@example.com"
+"acme-agreement:https://letsencrypt.org/documents/LE-SA-v1.1.1-August-1-2016.pdf": true
+"acmetool-quickstart-choose-server": https://acme-staging.api.letsencrypt.org/directory
+"acmetool-quickstart-choose-method": "webroot"
+"acmetool-quickstart-webroot-path": "/var/www/grav-admin/.well-known/acme-challenge"
+"acmetool-quickstart-complete": true
+"acmetool-quickstart-install-cronjob": true
