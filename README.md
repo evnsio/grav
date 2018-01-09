@@ -1,6 +1,6 @@
 This is a simple Docker image running Grav CMS with the admin plugin under Nginx.
 
-The container can also optionally generate trusted certs for your domain, using Let's Encrypt.  See [this post](https://evns.io/blog/automatic-ssl-setup-with-grav) for details.
+The container can also optionally generate trusted certs for your domain, using Let's Encrypt.  See [this post](http://evns.io/2017/02/14/ssl-setup.html) for details.
 
 For more info on Grav, visit the [Grav Website](https://getgrav.org/).
 
