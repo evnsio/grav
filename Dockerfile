@@ -5,7 +5,7 @@ ARG GRAV_VERSION=1.4.7
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y sudo wget vim unzip php7.0 php7.0-curl php7.0-gd php-pclzip php-fpm php7.0-zip php7.0-mbstring gnupg2
+    apt-get install -y sudo wget vim unzip php7.0 php7.0-curl php7.0-gd php-pclzip php-fpm php7.0-zip php7.0-mbstring php-xml gnupg2
 ADD https://github.com/krallin/tini/releases/download/v0.13.2/tini /usr/local/bin/tini
 RUN chmod +x /usr/local/bin/tini
 
