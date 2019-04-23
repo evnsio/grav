@@ -1,12 +1,13 @@
-FROM nginx:1.11.9
+FROM nginx:1.15.12
 
 # Desired version of grav
-ARG GRAV_VERSION=1.1.16
+ARG GRAV_VERSION=1.6.7
+ARG TINI_VERSION=v0.18.0
 
 # Install dependencies
 RUN apt-get update && \
     apt-get install -y sudo wget vim unzip php5 php5-curl php5-gd php-pclzip php5-fpm
-ADD https://github.com/krallin/tini/releases/download/v0.13.2/tini /usr/local/bin/tini
+ADD https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini /usr/local/bin/tini
 RUN chmod +x /usr/local/bin/tini
 
 # Set user to www-data
