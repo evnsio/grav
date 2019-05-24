@@ -30,7 +30,7 @@ function configure_nginx() {
     echo "[ INFO ] Configuring Nginx"
 
     echo "[ INFO ]  > Updating to listen on port 80"
-    sed -i 's/#listen 80;/listen 80;/g' /etc/nginx/conf.d/default.conf
+    sed -i 's/#listen 80;/listen 80;/g' /etc/nginx/sites-available/default
 
     if [ -z ${DOMAIN} ]; then
         echo "[ INFO ]  > No Domain supplied. Not updating server config"
@@ -61,19 +61,19 @@ function configure_nginx() {
                 server_name localhost;\
                 listen 443 ssl;\
                 ssl_certificate \/var\/lib\/acme\/live\/'${DOMAIN}'\/fullchain;\
-                ssl_certificate_key \/var\/lib\/acme\/live\/'${DOMAIN}'\/privkey;/g' /etc/nginx/conf.d/default.conf
+                ssl_certificate_key \/var\/lib\/acme\/live\/'${DOMAIN}'\/privkey;/g' /etc/nginx/sites-available/default
                 echo "[ INFO ]  > Updating Nginx to listen on port 443"
             fi
         fi
 
         echo "[ INFO ]  > Setting server_name to" ${DOMAIN} www.${DOMAIN}
-        sed -i 's/server_name localhost/server_name '${DOMAIN}' 'www.${DOMAIN}'/g' /etc/nginx/conf.d/default.conf
+        sed -i 's/server_name localhost/server_name '${DOMAIN}' 'www.${DOMAIN}'/g' /etc/nginx/sites-available/default
     fi
 }
 
 function start_services() {
     echo "[ INFO ] Starting nginx"
-    bash -c 'php5-fpm -D; nginx -g "daemon off;"'
+    bash -c 'php-fpm7.2 -D; nginx -g "daemon off;"'
 }
 
 
