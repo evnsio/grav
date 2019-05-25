@@ -2,8 +2,7 @@ version: '2'
 services:
   site:
     build:
-      context: .
-    restart: always
+      context: .    
     ports:
       - "80:80"
       - "443:443"
@@ -14,10 +13,9 @@ services:
       - ADMIN_PERMISSIONS=b
       - ADMIN_FULLNAME=Admin
       - ADMIN_TITLE=SiteAdmin
-      - DOMAIN=example.com    # set to your root/apex domain
-      - GENERATE_CERTS=false  # set to true to automatically setup trusted ssl with let's encrypt
+      - DOMAIN=example.com    # set to your root/apex domain      
     volumes:
-      - backup:/var/www/grav-admin/
+      - grav-data:/var/www/grav-admin/
 volumes:
-  backup:
+  grav-data:
     external: false

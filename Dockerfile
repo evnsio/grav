@@ -3,14 +3,15 @@ FROM ubuntu:bionic
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Desired version of grav
-ARG GRAV_VERSION=1.6.7
+ARG GRAV_VERSION=1.6.9
 ARG TINI_VERSION=v0.18.0
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y sudo nginx wget vim unzip php php-curl php-gd php-pclzip php-zip php-mbstring gnupg2
+    apt-get install -y sudo nginx wget vim unzip gnupg2
 
-RUN apt-get install php-fpm -y && \
+#Install PHP
+RUN apt-get install -y php-fpm php php-curl php-gd php-pclzip php-zip php-mbstring php-dom php-xml && \
     apt-get purge apache2 -y
 
 ADD https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini /usr/local/bin/tini
@@ -30,13 +31,7 @@ RUN wget https://github.com/getgrav/grav/releases/download/$GRAV_VERSION/grav-ad
 
 # Return to root user
 USER root
-
-# Install Acmetool Let's Encrypt client
-RUN echo 'deb http://ppa.launchpad.net/hlandau/rhea/ubuntu xenial main' > /etc/apt/sources.list.d/rhea.list \
-    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9862409EF124EC763B84972FF5AC9651EDB58DFA \
-    && apt-get update \
-    && apt-get install acmetool -y
-
+VOLUME [ "/var/www/grav-admin" ]
 # Configure nginx with grav
 WORKDIR grav-admin
 RUN cd webserver-configs && \
