@@ -1,6 +1,5 @@
 This is a simple Docker image running Grav CMS with the admin plugin under Nginx.
-
-The container can also optionally generate trusted certs for your domain, using Let's Encrypt.  See [this post](https://evns.io/blog/automatic-ssl-setup-with-grav) for details.
+This project is inspired from evns docker image.
 
 For more info on Grav, visit the [Grav Website](https://getgrav.org/).
 
@@ -11,7 +10,7 @@ For more info on Grav, visit the [Grav Website](https://getgrav.org/).
 The simplest way to run this image with docker alone is:
 
 ```
-docker run -d -p 80:80 evns/grav
+docker run -d -p 80:80 jjghali/grav
 ```
 
 This will run grav, and prompt for admin user setup on startup.  Grav will be available on [http://localhost/](http://localhost/)
@@ -36,12 +35,11 @@ services:
       - ADMIN_PERMISSIONS=b
       - ADMIN_FULLNAME=Admin
       - ADMIN_TITLE=SiteAdmin
-      - DOMAIN=example.com    # set to your root/apex domain
-      - GENERATE_CERTS=true   # set to true to automatically setup trusted ssl with let's encrypt
+      - DOMAIN=example.com    # set to your root/apex domain      
     volumes:
-      - backup:/var/www/grav-admin/
+      - gravdata:/var/www/grav-admin/
 volumes:
-  backup:
+  gravdata:
     external: false
 ```
 
@@ -52,7 +50,7 @@ docker-compose up -d
 ```
 
 This will do the following:
-* Open ports 80 and 443 for http(s) access
+* Open ports 80 for http(s) access
 * Configure the admin user
 * Create a volume named `backup` with the grav user data mounted into it
 * Generate trusted certificates for 'example.com' using Let's Encrypt
