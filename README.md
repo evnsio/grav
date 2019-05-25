@@ -23,7 +23,7 @@ To simplify further, the site can be started using the following docker compose:
 version: '2'
 services:
   site:
-    image: evns/grav
+    image: jjghali/grav
     restart: always
     ports:
       - "80:80"
@@ -52,9 +52,7 @@ docker-compose up -d
 This will do the following:
 * Open ports 80 for http(s) access
 * Configure the admin user
-* Create a volume named `backup` with the grav user data mounted into it
-* Generate trusted certificates for 'example.com' using Let's Encrypt
-* Configure Nginx with SSL
+* Create a volume named `gravdata` with the grav user data mounted into it
 
 
 ## Backing up
