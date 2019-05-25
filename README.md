@@ -5,6 +5,8 @@ The container can also optionally generate trusted certs for your domain, using 
 For more info on Grav, visit the [Grav Website](https://getgrav.org/).
 
 ## Usage
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjjghali%2Fgrav.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjjghali%2Fgrav?ref=badge_shield)
+
 
 ### Docker
 
@@ -85,3 +87,7 @@ The location of the volume on the host can be found with:
 ```
 docker volume inspect <volume-name>
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjjghali%2Fgrav.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjjghali%2Fgrav?ref=badge_large)
