@@ -12,6 +12,8 @@ release:
   stage: release
   script:
     - docker build --tag $DOCKERHUB_CONTAINERIMAGE:$CI_COMMIT_TAG .
+    - docker tag $DOCKERHUB_CONTAINERIMAGE:$CI_COMMIT_TAG $DOCKERHUB_CONTAINERIMAGE:latest
     - docker push $DOCKERHUB_CONTAINERIMAGE:$CI_COMMIT_TAG
+    - docker push $DOCKERHUB_CONTAINERIMAGE:latest
   only:
     - tags    
